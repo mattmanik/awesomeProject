@@ -1,10 +1,27 @@
+import {gql, useQuery} from '@apollo/client';
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
+const currentUser = gql`
+  query currentUserGet {
+    currentUserGet {
+      id
+      firstName
+      lastName
+    }
+  }
+`;
+
 function HomeScreen() {
+  const queryResult = useQuery(currentUser);
+  const firstName = queryResult?.data?.currentUserGet?.firstName || '';
+  const lastName = queryResult?.data?.currentUserGet?.lastName || '';
+
   return (
     <View style={styles.container}>
-      <Text>Hey</Text>
+      <Text>
+        Username is {firstName} {lastName}
+      </Text>
     </View>
   );
 }

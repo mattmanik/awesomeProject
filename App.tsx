@@ -1,17 +1,24 @@
 import React, {useState} from 'react';
 import Navigator from './screens/home-screen';
- import {
-//   Text,
-   StyleSheet,
-//   Image,
-//   TextInput,
-//   TouchableOpacity,
-//   FlatList,
-//   View,
- } from 'react-native';
+import {
+  //Text,
+  StyleSheet,
+  //   Image,
+  //   TextInput,
+  //   TouchableOpacity,
+  //   FlatList,
+  //   View,
+} from 'react-native';
+import {ApolloProvider} from '@apollo/client';
+import client from './lib/apolloClient';
 
 const YourApp = () => {
-const [text, setText] = useState('');
+  const [text, setText] = useState('');
+
+  fetch('https://api.publicapis.org/entries')
+    .then(res => res.json())
+    .then(data => console.log('data'));
+
   // const [showList, setShowList] = useState(false);
   // const [darkMode, setDarkMode] = useState(false);
   // const data = [
@@ -28,7 +35,9 @@ const [text, setText] = useState('');
   // ];
 
   return (
-    <Navigator />
+    <ApolloProvider client={client}>
+      <Navigator />
+    </ApolloProvider>
     // <View
     //   style={[styles.container, {backgroundColor: darkMode ? '#000' : '#fff'}]}>
     //   <TouchableOpacity style={styles.button}>
